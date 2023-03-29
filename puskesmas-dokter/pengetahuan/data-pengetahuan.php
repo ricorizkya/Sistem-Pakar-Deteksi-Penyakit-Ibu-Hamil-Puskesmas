@@ -142,7 +142,7 @@
             <li class="nav-heading">Data Penyakit</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-penyakit.php">
+                <a class="nav-link collapsed" href="../penyakit/data-penyakit.php">
                     <i class="bi bi-bug-fill"></i>
                     <span>Data Penyakit</span>
                 </a>
