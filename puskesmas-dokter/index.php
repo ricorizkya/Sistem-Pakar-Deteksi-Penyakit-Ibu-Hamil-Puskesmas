@@ -92,7 +92,7 @@
         // Mengambil data total dari hasil query
         $rowPasien = mysqli_fetch_assoc($resultPasien);
         
-
+        $total_pasien = 0;
         if($total_Pasien === 0 || $total_Pasien === NULL) {
             $total_Pasien = 0;
         }else {
