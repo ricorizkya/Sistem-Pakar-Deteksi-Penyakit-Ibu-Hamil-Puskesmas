@@ -86,13 +86,13 @@
 
     $queryPasien = "SELECT COUNT(*) AS total FROM pasien";
     $resultPasien = mysqli_query($conn, $queryPasien);
+    $total_pasien = 0;
 
     // Memeriksa apakah query berhasil dijalankan
     if($resultPasien) {
         // Mengambil data total dari hasil query
         $rowPasien = mysqli_fetch_assoc($resultPasien);
         
-        $total_pasien = 0;
         if($total_Pasien === 0 || $total_Pasien === NULL) {
             $total_Pasien = 0;
         }else {
@@ -213,7 +213,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="index.php">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
@@ -229,14 +229,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="dokter/data-dokter.php">
+                <a class="nav-link collapsed" href="/dokter/data-dokter.php">
                     <i class="bi bi-person-vcard-fill"></i>
                     <span>Data Dokter</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-pasien.php">
+                <a class="nav-link collapsed" href="/pasien/data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -252,14 +252,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-gejala.php">
+                <a class="nav-link collapsed" href="/gejala/data-gejala.php">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span>Data Gejala</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-pengetahuan.php">
+                <a class="nav-link collapsed" href="pengetahuan/data-pengetahuan.php">
                     <i class="bi bi-database-fill-gear"></i>
                     <span>Data Pengetahuan</span>
                 </a>
