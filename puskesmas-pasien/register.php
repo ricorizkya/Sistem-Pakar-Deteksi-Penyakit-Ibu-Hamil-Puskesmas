@@ -167,7 +167,7 @@
                                                 <input type="number" id="form3Example2" class="form-control"
                                                     name="usia_hamil" required />
                                                 <label class="form-label" for="form3Example2">Usia Kehamilan (Dalam
-                                                    Minggu)</label>
+                                                    Trimester)</label>
                                             </div>
                                         </div>
                                     </div>

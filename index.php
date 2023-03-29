@@ -92,7 +92,7 @@
         // Mengambil data total dari hasil query
         $rowPasien = mysqli_fetch_assoc($resultPasien);
         
-
+        $total_Pasien = 0;
         if($total_Pasien === 0 || $total_Pasien === NULL) {
             $total_Pasien = 0;
         }else {
@@ -236,7 +236,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-pasien.php">
+                <a class="nav-link collapsed" href="/data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -245,21 +245,21 @@
             <li class="nav-heading">Data Penyakit</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/penyakit/data-penyakit.php">
+                <a class="nav-link collapsed" href="penyakit/data-penyakit.php">
                     <i class="bi bi-bug-fill"></i>
                     <span>Data Penyakit</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-gejala.php">
+                <a class="nav-link collapsed" href="gejala/data-gejala.php">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span>Data Gejala</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-pengetahuan.php">
+                <a class="nav-link collapsed" href="pengetahuan/data-pengetahuan.php">
                     <i class="bi bi-database-fill-gear"></i>
                     <span>Data Pengetahuan</span>
                 </a>
