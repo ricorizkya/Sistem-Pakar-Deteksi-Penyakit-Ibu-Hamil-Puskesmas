@@ -2,7 +2,12 @@
     require('../koneksi.php');
 
     session_start();
-    $username = $_SESSION['username'];
+    if($_SESSION['login_admin'] == true) {
+        $is_login = $_SESSION['login_admin'];
+        $username = $_SESSION['username'];
+    }else {
+        header('location: ../login.php');
+    }
 
     $id_gejala = $_GET['nomor'];
 

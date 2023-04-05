@@ -3,8 +3,12 @@
     require('koneksi.php');
 
     session_start();
+    if($_SESSION['login_admin'] == true) {
+        header('Location: index.php');
+        exit();
+    }
 
-    if(isset($_POST['login'])) {
+    if(isset($_POST['login-admin'])) {
         $username = $_POST['username'];
         $password = $_POST['password'];
 
@@ -19,18 +23,19 @@
 
                 // Mengatur sesi untuk pengguna yang berhasil login
                 $_SESSION['username'] = $username;
+                $_SESSION['login_admin'] = true;
 
                 // Redirect ke halaman dashboard phpMyAdmin
                 header('Location: index.php');
                 exit();
             } else {
                 // Jika pengguna tidak ditemukan, tampilkan pesan error
-                $error = "Username atau password salah";
+                echo "<script>alert('Username atau Password Salah! Silahkan Ulangi Lagi!');</script>";
             }
 
         } else {
             // Jika query gagal dijalankan, tampilkan pesan error
-            $error = "Terjadi kesalahan dalam memverifikasi pengguna";
+            echo "<script>alert('Query Gagal!');</script>";
         }
 
         // Menutup koneksi database
@@ -129,32 +134,22 @@
             }
             </style>
 
-            <div class="container px-4 py-5 px-md-5 text-center text-lg-start my-5" style="width: 100%; height: 100%;">
+            <div class="container px-4 py-5 px-md-2 text-center text-lg-start my-5" style="width: 100%; height: 100%;">
                 <div class="row gx-lg-5 align-items-center mb-5" sty>
-                    <div class="col-lg-6 mb-5 mb-lg-0" style="z-index: 10">
+                    <div class="col-lg-5 mb-2 mb-lg-0" style="z-index: 10">
                         <h1 class="my-5 display-5 fw-bold ls-tight" style="color: hsl(218, 81%, 95%)">
                             Selamat Datang! <br />
                             <span style="color: hsl(218, 81%, 75%)">Puskesmas Mejobo</span>
                         </h1>
-                        <!-- <p class="mb-4 opacity-70" style="color: hsl(218, 81%, 85%)">
-                            Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-                            Temporibus, expedita iusto veniam atque, magni tempora mollitia
-                            dolorum consequatur nulla, neque debitis eos reprehenderit quasi
-                            ab ipsum nisi dolorem modi. Quos?
-                        </p> -->
                     </div>
 
-                    <div class="col-lg-6 mb-5 mb-lg-0 position-relative">
+                    <div class="col-lg-7 mb-7 mb-lg-0 position-relative">
                         <div id="radius-shape-1" class="position-absolute rounded-circle shadow-5-strong"></div>
                         <div id="radius-shape-2" class="position-absolute shadow-5-strong"></div>
 
                         <div class="card bg-glass">
-                            <div class="card-body px-4 py-5 px-md-5">
+                            <div class="card-body px-4 py-5 px-md-10">
                                 <form action="" method="post">
-                                    <!-- 2 column grid layout with text inputs for the first and last names -->
-
-
-                                    <!-- Email input -->
                                     <div class="form-outline mb-4">
                                         <input type="text" id="form3Example3" class="form-control" name="username"
                                             required />
@@ -169,9 +164,21 @@
                                     </div>
 
                                     <!-- Submit button -->
-                                    <button type="submit" class="btn btn-primary btn-block" name="login">
-                                        Sign up
-                                    </button>
+                                    <center>
+                                        <button type="submit" class="btn btn-primary btn-block" name="login-admin">
+                                            <i class="bi bi-person-fill-gear"></i> Login sebagai Admin
+                                        </button>
+                                        <button type="submit" class="btn btn-info btn-block" name="login-dokter">
+                                            <i class="bi bi-person-vcard-fill"></i> Login sebagai Dokter
+                                        </button>
+                                        <button type="submit" class="btn btn-success btn-block" name="login-pasien">
+                                            <i class="bi bi-person-badge-fill"></i> Login sebagai Pasien
+                                        </button>
+                                    </center><br>
+                                    <div>
+                                        <p>Pasien baru? <b><a href="/puskesmas-pasien/register.php">Daftar
+                                                    Disini</a></b></p>
+                                    </div>
                                 </form>
                             </div>
                         </div>
