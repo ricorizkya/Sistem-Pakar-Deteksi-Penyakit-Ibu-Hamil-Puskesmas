@@ -9,26 +9,6 @@
         header('location: login.php');
     }
 
-    $id_admin = $_GET['nomor'];
-
-    $querySelect = "SELECT * FROM admin WHERE id_admin=$id_admin";
-
-    $result = mysqli_query($conn, $querySelect);
-    $rowAdmin = mysqli_fetch_assoc($result);
-
-    if(isset($_POST['edit-admin'])) {
-        $nama = $_POST['nama_admin'];
-        $username = $_POST['username'];
-        $password = $_POST['password'];
-
-        $sql = "UPDATE admin SET nama_admin='$nama', username='$username', password='$password' WHERE id_admin=$id_admin";
-        if(mysqli_query($conn, $sql)) {
-            echo "<script>alert('Data berhasil diubah!'); window.location.href = 'data-admin.php';</script>";
-        }else {
-            echo "<script>alert('Data gagal diubah!'); window.location.href = 'edit-admin.php';</script>";
-        }
-    }
-
 ?>
 
 <!DOCTYPE html>
@@ -97,7 +77,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6><?php echo $username; ?></h6>
+                            <h7><?php echo $username; ?></h7>
                             <span>Administrator</span>
                         </li>
                         <li>
@@ -144,7 +124,7 @@
             <li class="nav-heading">Data Pengguna</li>
 
             <li class="nav-item">
-                <a class="nav-link " href="data-admin.php">
+                <a class="nav-link collapsed" href="data-admin.php">
                     <i class="bi bi-person-bounding-box"></i>
                     <span>Data Admin</span>
                 </a>
@@ -190,7 +170,7 @@
             <li class="nav-heading">Profil Puskesmas</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="profil-puskesmas.php">
+                <a class="nav-link " href="profil-puskesmas.php">
                     <i class="bi bi-hospital-fill"></i>
                     <span>Profil Puskesmas</span>
                 </a>
@@ -203,42 +183,111 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Edit Data Admin</h1>
+            <h1>Profil Puskesmas</h1>
             <nav style="--bs-breadcrumb-divider: '|';">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item">Data Admin</li>
-                    <li class="breadcrumb-item active">Edit Data Admin</li>
+                    <li class="breadcrumb-item active">Profil Puskesmas</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="card">
-                <div class="card-body"><br>
-                    <form class="row g-3" action="" method="post">
-                        <div class="col-md-12">
-                            <label for="inputName5" class="form-label">Nama Admin</label>
-                            <input type="text" class="form-control" id="inputName5" name="nama_admin"
-                                value="<?php echo $rowAdmin['nama_admin']; ?>" required>
+            <div class="row">
+
+                <!-- Left side columns -->
+                <div class="col-lg-12">
+                    <div class="row">
+
+                        <div class="col">
+                            <div class="card info-card revenue-card">
+
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <center>
+                                            <img src="assets/img/foto-puskesmas.jpeg" alt="" style="width: 75%;"><br>
+                                        </center><br>
+                                    </h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="ps-6">
+                                            <center>
+                                                <h4>Visi</h4>
+                                                <h7>KUDUS BANGKIT MENUJU KABUPATEN MODERN, RELIGUS, CERDAS DAN SEJAHTERA
+                                                </h7>
+                                            </center>
+                                            <br>
+                                            <center>
+                                                <h4>Misi</h4>
+                                            </center>
+                                            <ul style="list-style-type: circle; list-style-color: #4154f1;">
+                                                <li>
+                                                    <h7>MEWUJUDKAN MASYARAKAT KUDUSYANG BERKUALITAS, KREATIF, INOVATIF
+                                                        DENGAN
+                                                        MEMANFAATKAN TEKNOLOGI DAN MULTIMEDIA</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEWUJUDKAN PEMERINTAHAN YANG SEMAKIN HANDAL UNTUK MENINGKATKAN
+                                                        PELAYANAN
+                                                        PUBLIK</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEWUJUDKAN KEHIDUPAN YANG TOLERAN DAN KONDUSIF</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEMPERKUAT EKONOMI KERAKYATAN YANG BERBASIS KEUNGGULAN LOKAL DAN
+                                                        MEMBANGUN IKLIM USAHA YANG BERDAYA SAING</h7>
+                                                </li>
+                                            </ul><br>
+                                            <center>
+                                                <h4>Lokasi</h4>
+                                            </center>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5052719456257!2d110.89742101487167!3d-6.82985596870731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70c57f021f72ad%3A0x3d0c94a7bd7c6c26!2sPuskesmas%20Mejobo!5e0!3m2!1sen!2sid!4v1680798342591!5m2!1sen!2sid"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy"
+                                                referrerpolicy="no-referrer-when-downgrade"></iframe><br><br>
+                                            <center>
+                                                <h4>Kontak Person</h4>
+                                            </center>
+                                            <div class="row justify-content-center">
+                                                <div class="col style=" width: 40px;">
+                                                    <b>
+                                                        <h7>Whatsapp</h7>
+                                                    </b><br>
+                                                    <img src="assets/img/whatsapp.png" style="width: 30px;">&nbsp;
+                                                    0876-3632-63
+                                                </div>
+                                                <div class="col style=" width: 40px; ">
+                                                    <b>
+                                                        <h7>Telepon</h7>
+                                                    </b><br>
+                                                    <img src=" assets/img/telephone.png" style="width: 30px;">&nbsp;
+                                                    0291-431051
+                                                </div>
+                                                <div class="col style=" width: 40px; ">
+                                                    <b>
+                                                        <h7>Fax</h7>
+                                                    </b><br>
+                                                    <img src=" assets/img/fax-machine.png" style="width: 30px;">&nbsp;
+                                                    0291-4247447
+                                                </div>
+                                                <div class="col col-4">
+                                                    <b>
+                                                        <h7>E-Mail</h7>
+                                                    </b><br>
+                                                    <img src="assets/img/gmail.png" style="width: 30px;">&nbsp;
+                                                    pusk.mejobo@kuduskab.go.id
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
                         </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail5" class="form-label">Username</label>
-                            <input type="text" class="form-control" id="inputEmail5" name="username"
-                                value="<?php echo $rowAdmin['username']; ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputPassword5" class="form-label">Password</label>
-                            <input type="password" class="form-control" id="inputPassword5" name="password"
-                                value="<?php echo $rowAdmin['password']; ?>" required>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" name="edit-admin" class="btn btn-primary"
-                                style="width: 100%;">Submit</button>
-                        </div>
-                    </form><!-- End Multi Columns Form -->
-                    <!-- End Bordered Table -->
-                </div>
+                    </div>
+                </div><!-- End Left side columns -->
             </div>
         </section>
 

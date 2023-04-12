@@ -2,8 +2,8 @@
     require('koneksi.php');
 
     session_start();
-    if($_SESSION['login_admin'] == true) {
-        $is_login = $_SESSION['login_admin'];
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
         $username = $_SESSION['username'];
     }else {
         header('location: login.php');
@@ -218,7 +218,7 @@
         <ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
-                <a class="nav-link " href="index.html">
+                <a class="nav-link " href="index.php">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>

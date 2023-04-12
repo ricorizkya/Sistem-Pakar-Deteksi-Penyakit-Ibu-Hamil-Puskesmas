@@ -1,9 +1,13 @@
 <?php
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
     require('koneksi.php');
 
     session_start();
-    if($_SESSION['login_admin'] == true) {
+    if($_SESSION['login'] == true) {
         header('Location: index.php');
         exit();
     }
@@ -23,10 +27,74 @@
 
                 // Mengatur sesi untuk pengguna yang berhasil login
                 $_SESSION['username'] = $username;
-                $_SESSION['login_admin'] = true;
+                $_SESSION['login'] = true;
 
                 // Redirect ke halaman dashboard phpMyAdmin
                 header('Location: index.php');
+                exit();
+            } else {
+                // Jika pengguna tidak ditemukan, tampilkan pesan error
+                echo "<script>alert('Username atau Password Salah! Silahkan Ulangi Lagi!');</script>";
+            }
+
+        } else {
+            // Jika query gagal dijalankan, tampilkan pesan error
+            echo "<script>alert('Query Gagal!');</script>";
+        }
+
+        // Menutup koneksi database
+        mysqli_close($conn);
+    }elseif(isset($_POST['login-dokter'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $query = "SELECT * FROM dokter WHERE username_dokter='$username' AND password_dokter='$password'";
+        $result = mysqli_query($conn, $query);
+
+        // Memeriksa apakah query berhasil dijalankan
+        if($result) {
+
+            // Memeriksa apakah pengguna ditemukan
+            if(mysqli_num_rows($result) == 1) {
+
+                // Mengatur sesi untuk pengguna yang berhasil login
+                $_SESSION['username'] = $username;
+                $_SESSION['login'] = true;
+
+                // Redirect ke halaman dashboard phpMyAdmin
+                header('Location: puskesmas-dokter/index.php');
+                exit();
+            } else {
+                // Jika pengguna tidak ditemukan, tampilkan pesan error
+                echo "<script>alert('Username atau Password Salah! Silahkan Ulangi Lagi!');</script>";
+            }
+
+        } else {
+            // Jika query gagal dijalankan, tampilkan pesan error
+            echo "<script>alert('Query Gagal!');</script>";
+        }
+
+        // Menutup koneksi database
+        mysqli_close($conn);
+    }elseif(isset($_POST['login-pasien'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
+
+        $query = "SELECT * FROM pasien WHERE username_pasien='$username' AND password_pasien='$password'";
+        $result = mysqli_query($conn, $query);
+
+        // Memeriksa apakah query berhasil dijalankan
+        if($result) {
+
+            // Memeriksa apakah pengguna ditemukan
+            if(mysqli_num_rows($result) == 1) {
+
+                // Mengatur sesi untuk pengguna yang berhasil login
+                $_SESSION['username'] = $username;
+                $_SESSION['login'] = true;
+
+                // Redirect ke halaman dashboard phpMyAdmin
+                header('Location: puskesmas-pasien/index.php');
                 exit();
             } else {
                 // Jika pengguna tidak ditemukan, tampilkan pesan error

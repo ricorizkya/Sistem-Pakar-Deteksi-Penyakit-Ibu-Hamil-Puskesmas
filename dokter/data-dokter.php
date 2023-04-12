@@ -2,7 +2,12 @@
     require('../koneksi.php');
 
     session_start();
-    $username = $_SESSION['username'];
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
+        $username = $_SESSION['username'];
+    }else {
+        header('location: ../login.php');
+    }
 
 ?>
 
@@ -133,7 +138,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../data-pasien.php">
+                <a class="nav-link collapsed" href="../pasien/data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -156,7 +161,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../data-pengetahuan.php">
+                <a class="nav-link collapsed" href="../pengetahuan/data-pengetahuan.php">
                     <i class="bi bi-database-fill-gear"></i>
                     <span>Data Pengetahuan</span>
                 </a>
