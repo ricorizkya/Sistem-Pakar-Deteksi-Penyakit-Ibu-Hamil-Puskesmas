@@ -1,11 +1,17 @@
 <?php
-    require('koneksi.php');
+
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+    require('../koneksi.php');
 
     session_start();
-    $username = $_SESSION['username_pasien'];
-
-    if($_SESSION['username_pasien'] != $username) {
-        header('location: login.php');
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
+        $username = $_SESSION['username'];
+    }else {
+        header('location: ../login.php');
     }
 
     $queryPenyakit = "SELECT COUNT(*) AS total FROM penyakit";

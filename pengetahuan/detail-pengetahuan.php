@@ -2,8 +2,8 @@
     require('../koneksi.php');
 
     session_start();
-    if($_SESSION['login_admin'] == true) {
-        $is_login = $_SESSION['login_admin'];
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
         $username = $_SESSION['username'];
     }else {
         header('location: ../login.php');
@@ -21,14 +21,16 @@
         $idGejala = $_POST['id_gejala'];
         $nilaiMB = $_POST['mb'];
         $nilaiMD = $_POST['md'];
+        $nilaiCF = $nilaiMB-$nilaiMD;
 
-        $queryEdit = "UPDATE basis_pengetahuan SET id_gejala='$idGejala',mb='$nilaiMB',md='$nilaiMD' WHERE id_pengetahuan='$idPengetahuan'";
+        $queryEdit = "UPDATE basis_pengetahuan SET id_gejala='$idGejala',mb='$nilaiMB',md='$nilaiMD',cf='$nilaiCF' WHERE id_pengetahuan='$idPengetahuan'";
         if(mysqli_query($conn, $queryEdit)) {
             echo "<script>alert('Data berhasil diubah!'); window.location.href = 'detail-pengetahuan.php?nomor=".$id_penyakit."';</script>";
         }else {
             echo "<script>alert('Data gagal diubah!'); window.location.href = 'detail-pengetahuan.php?nomor=".$id_penyakit."';</script>";
         } 
-    } 
+    }
+
 
 ?>
 
@@ -292,14 +294,6 @@
                                             <label for="inputPassword5" class="form-label">Masukkan Nilai MD</label>
                                             <input ype="number" step="any" class="form-control" id="nilai_md" name="md"
                                                 required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="number" step="any" class="form-control" id="id_gejala"
-                                                name="id_gejala" required>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <input type="number" step="any" class="form-control" id="id_pengetahuan"
-                                                name="id_pengetahuan" required>
                                         </div>
                                 </div>
                                 <div class="modal-footer">

@@ -9,34 +9,7 @@
         header('location: ../login.php');
     }
 
-    $id_gejala = $_GET['nomor'];
-
-    $querySelect = "SELECT * FROM gejala WHERE id_gejala=$id_gejala";
-
-    $result = mysqli_query($conn, $querySelect);
-    $rowGejala = mysqli_fetch_assoc($result);
-
-    if(isset($_POST['edit-gejala'])) {
-        $kode_gejala = $_POST['kode_gejala'];
-        $nama_gejala = $_POST['nama_gejala'];
-
-        $sql = "UPDATE gejala SET kode_gejala='$kode_gejala', nama_gejala='$nama_gejala' WHERE id_gejala=$id_gejala";
-        if(mysqli_query($conn, $sql)) {
-            echo "<script>alert('Data berhasil diubah!'); window.location.href = 'data-gejala.php';</script>";
-        }else {
-            echo "<script>alert('Data gagal diubah!'); window.location.href = 'edit-gejala.php';</script>";
-        }
-    }
-
-    $queryCoba = "SELECT * FROM `basis_pengetahuan` where id_gejala=3;";
-    $resultCoba = mysqli_query($conn, $queryCoba);
-    $data = array();
-    while($rowCoba = mysqli_fetch_assoc($result)){
-        $data[] = $rowCoba;
-    }
-
-    // echo $data;
-
+    $id_pasien = $_GET['nomor'];
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +59,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="../index.php" class="logo d-flex align-items-center">
+            <a href="index.php" class="logo d-flex align-items-center">
                 <img src="../assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Puskesmas Mejobo</span>
             </a>
@@ -166,7 +139,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../pasien/data-pasien.php">
+                <a class="nav-link " href="data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -175,14 +148,14 @@
             <li class="nav-heading">Data Penyakit</li>
 
             <li class="nav-item">
-                <a class="nav-link " href="../penyakit/data-penyakit.php">
+                <a class="nav-link collapsed" href="../penyakit/data-penyakit.php">
                     <i class="bi bi-bug-fill"></i>
                     <span>Data Penyakit</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-gejala.php">
+                <a class="nav-link collapsed" href="../gejala/data-gejala.php">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span>Data Gejala</span>
                 </a>
@@ -210,37 +183,118 @@
 
     <main id="main" class="main">
 
+        <?php
+        $queryDetail = "SELECT * FROM pasien WHERE id_pasien=$id_pasien";
+        $result = mysqli_query($conn, $queryDetail);
+        $rowPasien = mysqli_fetch_assoc($result);
+    ?>
+
         <div class="pagetitle">
-            <h1>Edit Data Gejala</h1>
+            <h1>Data Pasien <?= $rowPasien['nama_pasien']; ?></h1>
             <nav style="--bs-breadcrumb-divider: '|';">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="data-gejala.php">Data Gejala</a></li>
-                    <li class="breadcrumb-item active">Edit Data Gejala</li>
+                    <li class="breadcrumb-item active">Data Pasien <?= $rowPasien['nama_pasien']; ?></li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
             <div class="card">
-                <div class="card-body"><br>
-                    <form class="row g-3" action="" method="post">
-                        <div class="col-md-6">
-                            <label for="inputName5" class="form-label">Kode Gejala</label>
-                            <input type="text" class="form-control" id="inputName5" name="kode_gejala"
-                                value="<?= $rowGejala['kode_gejala']; ?>" required>
-                        </div>
-                        <div class="col-md-6">
-                            <label for="inputEmail5" class="form-label">Nama Gejala</label>
-                            <input type="text" class="form-control" id="inputEmail5" name="nama_gejala"
-                                value="<?= $rowGejala['nama_gejala']; ?>">
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" name="edit-gejala" class="btn btn-primary"
-                                style="width: 100%;">Submit</button>
-                        </div>
-                    </form><!-- End Multi Columns Form -->
-                    <?php var_dump($data); ?>
+                <div class="card-header" style="background-color: #4154f1;">
+                    <h4 style="color: white;">Data Diri Pasien <?= $rowPasien['nama_pasien']; ?></h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-2"><b>NIK</b></div>
+                        <div class="col-3"><?= $rowPasien['nik']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Nama Pasien</b></div>
+                        <div class="col-3"><?= $rowPasien['nama_pasien']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Tanggal Lahir</b></div>
+                        <div class="col-3"><?= $rowPasien['tgl_lahir']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Pendidikan Terakhir</b></div>
+                        <div class="col-3"><?= $rowPasien['pendidikan']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Pekerjaan</b></div>
+                        <div class="col-3"><?= $rowPasien['pekerjaan']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Umur Pasien</b></div>
+                        <div class="col-3"><?= $rowPasien['umur']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Usia Kehamilan</b></div>
+                        <div class="col-3"><?= $rowPasien['usia_kehamilan']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Nomor HP</b></div>
+                        <div class="col-3"><?= $rowPasien['no_hp']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Alamat Lengkap</b></div>
+                        <div class="col-3"><?= $rowPasien['alamat_pasien']; ?></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-2"><b>Username Pasien</b></div>
+                        <div class="col-3"><?= $rowPasien['username_pasien']; ?></div>
+                    </div>
+                    <!-- End Bordered Table -->
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" style="background-color: #4154f1;">
+                    <h4 style="color: white;">Riwayat Diagnosa</h4>
+                </div>
+                <div class="card-body">
+                    <?php
+                        $result = mysqli_query($conn, "SELECT * FROM pasien");
+                        if(mysqli_num_rows($result) > 0){
+                            $counter = 1;
+                    ?>
+                    <!-- Bordered Table -->
+                    <table class="table table-hover datatable">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Tanggal</th>
+                                <th scope="col">Gejala</th>
+                                <th scope="col">Kondisi</th>
+                                <th scope="col">Hasil Diagnosa</th>
+                                <th scope="col">Dokter</th>
+                                <th scope="col">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                                while($row = mysqli_fetch_assoc($result)){
+                            ?>
+                            <tr>
+                                <th scope="row"><?php echo $counter; ?></th>
+                                <td><?php echo $row['nik']; ?></td>
+                                <td><?php echo $row['nama_pasien']; ?></td>
+                                <td><?php echo $row['tgl_lahir']; ?></td>
+                                <td><?php echo $row['pendidikan']; ?></td>
+                                <td><?php echo $row['pekerjaan']; ?></td>
+                                <td>
+                                    <a href="cetak-data.php?nomor=<?php echo $row['id_riwayat']; ?>"
+                                        class="btn btn-success">Cetak Data</a>
+                                </td>
+                            </tr>
+                            <?php 
+                                }
+                            }else {
+                                    echo "Tidak ada data yang ditemukan.";
+                                }
+                            ?>
+                        </tbody>
+                    </table>
                     <!-- End Bordered Table -->
                 </div>
             </div>

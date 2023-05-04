@@ -1,30 +1,24 @@
 <?php
-    require('koneksi.php');
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
+    require('../koneksi.php');
 
     session_start();
-    $username = $_SESSION['username_pasien'];
-
-    if($_SESSION['username_pasien'] != $username) {
-        header('location: login.php');
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
+        $username = $_SESSION['username'];
+    }else {
+        header('location: ../login.php');
     }
-
-    if(isset($_POST['diagnosa'])) {
-        $queryID = "SELECT * FROM pasien WHERE username_pasien = $username";
-        $resultID = mysqli_query($conn, $queryID);
-        $rowID = mysqli_fetch_assoc($resultID);
-        $id_pasien = $rowID['id_pasien'];
-
-        $id_gejala = $_POST['id_gejala'];
-        $kondisi = $_POST['kondisi'];
-
-        
-
-        // $queryInsert = "INSERT INTO "
-
-    }
-
-
-
+    
+    $queryID = "SELECT * FROM pasien WHERE username_pasien='$username'";
+    $resultID = mysqli_query($conn, $queryID);
+                                        $rowID = mysqli_fetch_assoc($resultID);
+                                        $id_pasien = $rowID['id_pasien'];
+                                
+                                        $tgl_sekarang = date('Y-m-d');
 ?>
 
 <!DOCTYPE html>
@@ -197,53 +191,194 @@
                             $counter = 1;
                     ?>
                     <!-- Bordered Table -->
-                    <form action="" method="post">
-                        <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">No</th>
-                                    <th scope="col">Kode Gejala</th>
-                                    <th scope="col">Nama Gejala</th>
-                                    <th scope="col">Kondisi</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th scope="col">No</th>
+                                <th scope="col">Kode Gejala</th>
+                                <th scope="col">Nama Gejala</th>
+                                <th scope="col">Kondisi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+while ($row = mysqli_fetch_assoc($result)) {
+?>
+                            <tr>
                                 <?php
-                                while($row = mysqli_fetch_assoc($result)){
-                            ?>
-                                <tr>
-                                    <th scope="row"><?php echo $counter++; ?></th>
+                                $id_gejala_cek = $row['id_gejala'];
+                                $queryCek = "SELECT * FROM gejala_user WHERE tgl='$tgl_sekarang' AND id_user='$id_pasien' AND id_gejala=$id_gejala_cek";
+                                $resultCek = mysqli_query($conn, $queryCek);
+                                if(mysqli_num_rows($resultCek) > 0){
+                                    $rowCek = mysqli_fetch_assoc($resultCek);
+                                    if ($rowCek['kondisi'] == 1.0) {
+                                        $teks_kondisi_cek = "Pasti Ya";
+                                    } else if ($rowCek['kondisi'] == 0.8) {
+                                        $teks_kondisi_cek = "Hampir Pasti";
+                                    } else if ($rowCek['kondisi'] == 0.6) {
+                                        $teks_kondisi_cek = "Kemungkinan Besar";
+                                    } else if ($rowCek['kondisi'] == 0.4) {
+                                        $teks_kondisi_cek = "Mungkin";
+                                    } else if ($rowCek['kondisi'] == 0.2) {
+                                        $teks_kondisi_cek = "Hampir Mungkin";
+                                    } else {
+                                        $teks_kondisi_cek = "Tidak";
+                                    }
+                                    echo "<td>" . $counter++ . "</td>";
+                                    echo "<td>" . $row['kode_gejala'] . "</td>";
+                                    echo "<td>" . $row['nama_gejala'] . "</td>";
+                                    echo "<td>" . $teks_kondisi_cek . "</td>";
+                                }elseif (isset($_POST['simpan-gejala']) && $_POST['id_gejala'] == $row['id_gejala']) {
+            // Jika tombol simpan pada baris ini ditekan, maka simpan ke database dan tampilkan teks
+                                        
+                                        $id_gejala = $_POST['id_gejala'];
+                                        $kondisi = $_POST['kondisi'];
+                                        $querySimpan = "INSERT INTO gejala_user (tgl,id_gejala,kondisi,id_user) VALUES ('$tgl_sekarang','$id_gejala','$kondisi','$id_pasien')";
+            mysqli_query($conn, $querySimpan);
+
+            // tampilkan teks sesuai dengan nilai yang dipilih
+            if ($kondisi == 1.0) {
+                $teks_kondisi = "Pasti Ya";
+            } else if ($kondisi == 0.8) {
+                $teks_kondisi = "Hampir Pasti";
+            } else if ($kondisi == 0.6) {
+                $teks_kondisi = "Kemungkinan Besar";
+            } else if ($kondisi == 0.4) {
+                $teks_kondisi = "Mungkin";
+            } else if ($kondisi == 0.2) {
+                $teks_kondisi = "Hampir Mungkin";
+            } else {
+                $teks_kondisi = "Tidak";
+            }
+            echo "<td>" . $counter++ . "</td>";
+            echo "<td>" . $row['kode_gejala'] . "</td>";
+            echo "<td>" . $row['nama_gejala'] . "</td>";
+            echo "<td>" . $teks_kondisi . "</td>";
+        } else {
+            // Jika tombol simpan pada baris ini belum ditekan, tampilkan dropdown
+            ?>
+                                <form action="" method="post">
+                                    <td><?php echo $counter++; ?></td>
                                     <td>
                                         <?php echo $row['kode_gejala']; ?>
-                                        <input type="hidden" id="form3Example3" class="form-control" name="nomor_hp"
+                                        <input type="hidden" id="form3Example3" class="form-control" name="id_gejala"
                                             value="<?php echo $row['id_gejala']; ?>" />
                                     </td>
                                     <td><?php echo $row['nama_gejala']; ?></td>
+                                    <?php
+                                            $id_gejala_cek = $row['id_gejala'];
+                                            $queryCek = "SELECT * FROM gejala_user WHERE tgl='$tgl_sekarang' AND id_user='$id_pasien' AND id_gejala=$id_gejala_cek";
+                                            $resultCek = mysqli_query($conn, $queryCek);
+                                            if(mysqli_num_rows($resultCek) > 0){
+                                                $rowCek = mysqli_fetch_assoc($resultCek);
+                                                if ($rowCek['kondisi'] == 1.0) {
+                                                    $teks_kondisi_cek = "Pasti Ya";
+                                                } else if ($rowCek['kondisi'] == 0.8) {
+                                                    $teks_kondisi_cek = "Hampir Pasti";
+                                                } else if ($rowCek['kondisi'] == 0.6) {
+                                                    $teks_kondisi_cek = "Kemungkinan Besar";
+                                                } else if ($rowCek['kondisi'] == 0.4) {
+                                                    $teks_kondisi_cek = "Mungkin";
+                                                } else if ($rowCek['kondisi'] == 0.2) {
+                                                    $teks_kondisi_cek = "Hampir Mungkin";
+                                                } else {
+                                                    $teks_kondisi_cek = "Tidak";
+                                                }
+                                        ?>
+                                    <td><?php echo $teks_kondisi_cek; ?></td>
+                                    <?php
+                                            }else {
+                                    ?>
                                     <td>
                                         <select class="form-select" aria-label="Default select example" name="kondisi">
-                                            <option value='0'>Pilih Kondisi</option>
+                                            <option value='0.0'>Pilih Kondisi</option>
                                             <option value='1.0'>Pasti Ya</option>
                                             <option value='0.8'>Hampir Pasti</option>
                                             <option value='0.6'>Kemungkinan Besar</option>
                                             <option value='0.4'>Mungkin</option>
                                             <option value='0.2'>Hampir Mungkin</option>
-                                            <option value='0'>Tidak</option>
+                                            <option value='0.0'>Tidak</option>
                                         </select>
+                                        <button type="submit" name="simpan-gejala" class="btn btn-primary"
+                                            style="width: 100%;">Simpan</button>
                                     </td>
-                                </tr>
-                                <?php 
-                                }
-                            }else {
-                                    echo "Tidak ada data yang ditemukan.";
-                                }
-                            ?>
-                            </tbody>
-                        </table>
+                                    <?php } ?>
+                                </form>
+                                <?php
+        }
+        ?>
+                            </tr>
+                            <?php
+}
+}
+?>
+                        </tbody>
+                    </table>
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                        data-bs-target="#verticalycentered" style="width: 100%;">
+                        Lanjut
+                    </button>
+                    <div class="modal fade" id="verticalycentered" tabindex="-1">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Daftar Gejala Anda</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">Kode Gejala</th>
+                                                <th scope="col">Nama Gejala</th>
+                                                <th scope="col">Kondisi</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <?php
+                                                    $gejala_user = "SELECT * FROM gejala_user LEFT JOIN gejala ON gejala_user.id_gejala = gejala.id_gejala WHERE tgl='$tgl_sekarang' AND id_user='$id_pasien'";
+                                                    $result_gejala_user = mysqli_query($conn, $gejala_user);
+                                                    if(mysqli_num_rows($result_gejala_user) > 0){
+                                                        $counter = 1;
+                                                        while ($row_gejala = mysqli_fetch_assoc($result_gejala_user)) {
+                                                ?>
+                                                <th scope="row"><?= $counter++; ?></th>
+                                                <td><?= $row_gejala['kode_gejala']; ?></td>
+                                                <td><?= $row_gejala['nama_gejala']; ?></td>
+                                                <?php
+                                                    if($row_gejala['kondisi'] == 1.0) {
+                                                        $kondisi_user = "Pasti Ya";
+                                                    }elseif($row_gejala['kondisi'] == 0.8) {
+                                                        $kondisi_user = "Hampir Pasti";
+                                                    }elseif($row_gejala['kondisi'] == 0.6) {
+                                                        $kondisi_user = "Kemungkinan Besar";
+                                                    }elseif($row_gejala['kondisi'] == 0.4) {
+                                                        $kondisi_user = "Mungkin";
+                                                    }elseif($row_gejala['kondisi'] == 0.2) {
+                                                        $kondisi_user = "Hampir Mungkin";
+                                                    }elseif($row_gejala['kondisi'] == 0.0) {
+                                                        $kondisi_user = "Tidak";
+                                                    }
+                                                ?>
+                                                <td><?= $kondisi_user; ?></td>
+                                            </tr>
+                                            <?php }} ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Batal</button>
+                                    <a href="hasil.php" class="btn btn-success">Lanjutkan</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="card-header">
-                    <button type="submit" class="btn btn-primary" name="diagnosa" style="width: 100%;">Kirim</button>
-                    </form>
-                </div>
+            </div>
             </div>
 
         </section>

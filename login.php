@@ -1,8 +1,8 @@
 <?php
 
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
+// ini_set('display_errors', 1);
+// ini_set('display_startup_errors', 1);
+// error_reporting(E_ALL);
 
     require('koneksi.php');
 
@@ -244,7 +244,7 @@ error_reporting(E_ALL);
                                         </button>
                                     </center><br>
                                     <div>
-                                        <p>Pasien baru? <b><a href="/puskesmas-pasien/register.php">Daftar
+                                        <p>Pasien baru? <b><a href="puskesmas-pasien/register.php">Daftar
                                                     Disini</a></b></p>
                                     </div>
                                 </form>

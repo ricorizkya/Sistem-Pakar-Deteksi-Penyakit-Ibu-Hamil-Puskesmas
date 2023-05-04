@@ -2,8 +2,8 @@
     require('../koneksi.php');
 
     session_start();
-    if($_SESSION['login_admin'] == true) {
-        $is_login = $_SESSION['login_admin'];
+    if($_SESSION['login'] == true) {
+        $is_login = $_SESSION['login'];
         $username = $_SESSION['username'];
     }else {
         header('location: ../login.php');
@@ -20,8 +20,9 @@
         $id_gejala = $_POST['id_gejala'];
         $mb = $_POST['mb'];
         $md = $_POST['md'];
+        $cf = $mb-$md;
 
-        $sql = "INSERT INTO basis_pengetahuan (id_penyakit, id_gejala, mb, md) VALUES ('$id_penyakit', '$id_gejala', '$mb', '$md')";
+        $sql = "INSERT INTO basis_pengetahuan (id_penyakit, id_gejala, mb, md, cf) VALUES ('$id_penyakit', '$id_gejala', '$mb', '$md', '$cf')";
         if(mysqli_query($conn, $sql)) {
             echo "<script>alert('Data berhasil ditambahkan!'); window.location.href = 'detail-pengetahuan.php?nomor=".$id_penyakit."';</script>";
         }else {
