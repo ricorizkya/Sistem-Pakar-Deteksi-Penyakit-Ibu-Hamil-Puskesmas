@@ -180,6 +180,28 @@ error_reporting(E_ALL);
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
+            <?php
+                // $queryCekDiagnosa = "SELECT * FROM gejala_user WHERE id_user='$id_pasien' AND tgl='$tgl_sekarang'";
+                // $resultCekDiagnosa = mysqli_query($conn, $queryCekDiagnosa);
+
+                // if(mysqli_num_rows($resultCekDiagnosa) > 0) {
+            ?>
+            <div class="card">
+                <div class="card-body">
+                    <center>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="orange"
+                            class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                            <path
+                                d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                        </svg>
+                        <h3>Anda sudah melakukan diagnosa hari ini. Silahkan cek pada menu "Riwayat" untuk melihat hasil
+                            diagnosa anda hari ini.</h3>
+                    </center>
+                </div>
+            </div>
+            <?php
+                // }else {
+            ?>
             <div class="card">
                 <div class="card-header">
                     <h3><b>Pilih gejala sesuai dengan apa yang anda rasakan</b></h3>
@@ -203,8 +225,8 @@ error_reporting(E_ALL);
                         </thead>
                         <tbody>
                             <?php
-while ($row = mysqli_fetch_assoc($result)) {
-?>
+                            while ($row = mysqli_fetch_assoc($result)) {
+                            ?>
                             <tr>
                                 <?php
                                 $id_gejala_cek = $row['id_gejala'];
@@ -230,34 +252,34 @@ while ($row = mysqli_fetch_assoc($result)) {
                                     echo "<td>" . $row['nama_gejala'] . "</td>";
                                     echo "<td>" . $teks_kondisi_cek . "</td>";
                                 }elseif (isset($_POST['simpan-gejala']) && $_POST['id_gejala'] == $row['id_gejala']) {
-            // Jika tombol simpan pada baris ini ditekan, maka simpan ke database dan tampilkan teks
+                                // Jika tombol simpan pada baris ini ditekan, maka simpan ke database dan tampilkan teks
                                         
                                         $id_gejala = $_POST['id_gejala'];
                                         $kondisi = $_POST['kondisi'];
                                         $querySimpan = "INSERT INTO gejala_user (tgl,id_gejala,kondisi,id_user) VALUES ('$tgl_sekarang','$id_gejala','$kondisi','$id_pasien')";
-            mysqli_query($conn, $querySimpan);
+                                        mysqli_query($conn, $querySimpan);
 
-            // tampilkan teks sesuai dengan nilai yang dipilih
-            if ($kondisi == 1.0) {
-                $teks_kondisi = "Pasti Ya";
-            } else if ($kondisi == 0.8) {
-                $teks_kondisi = "Hampir Pasti";
-            } else if ($kondisi == 0.6) {
-                $teks_kondisi = "Kemungkinan Besar";
-            } else if ($kondisi == 0.4) {
-                $teks_kondisi = "Mungkin";
-            } else if ($kondisi == 0.2) {
-                $teks_kondisi = "Hampir Mungkin";
-            } else {
-                $teks_kondisi = "Tidak";
-            }
-            echo "<td>" . $counter++ . "</td>";
-            echo "<td>" . $row['kode_gejala'] . "</td>";
-            echo "<td>" . $row['nama_gejala'] . "</td>";
-            echo "<td>" . $teks_kondisi . "</td>";
-        } else {
-            // Jika tombol simpan pada baris ini belum ditekan, tampilkan dropdown
-            ?>
+                                        // tampilkan teks sesuai dengan nilai yang dipilih
+                                        if ($kondisi == 1.0) {
+                                            $teks_kondisi = "Pasti Ya";
+                                        } else if ($kondisi == 0.8) {
+                                            $teks_kondisi = "Hampir Pasti";
+                                        } else if ($kondisi == 0.6) {
+                                            $teks_kondisi = "Kemungkinan Besar";
+                                        } else if ($kondisi == 0.4) {
+                                            $teks_kondisi = "Mungkin";
+                                        } else if ($kondisi == 0.2) {
+                                            $teks_kondisi = "Hampir Mungkin";
+                                        } else {
+                                            $teks_kondisi = "Tidak";
+                                        }
+                                        echo "<td>" . $counter++ . "</td>";
+                                        echo "<td>" . $row['kode_gejala'] . "</td>";
+                                        echo "<td>" . $row['nama_gejala'] . "</td>";
+                                        echo "<td>" . $teks_kondisi . "</td>";
+                                    } else {
+                                // Jika tombol simpan pada baris ini belum ditekan, tampilkan dropdown
+                                ?>
                                 <form action="" method="post">
                                     <td><?php echo $counter++; ?></td>
                                     <td>
@@ -311,7 +333,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                             </tr>
                             <?php
 }
-}
+// }
 ?>
                         </tbody>
                     </table>
@@ -379,6 +401,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                     </div>
                 </div>
             </div>
+            <?php } ?>
             </div>
 
         </section>

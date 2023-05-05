@@ -370,20 +370,49 @@ error_reporting(E_ALL);
                                 dokter untuk tindakan lebih lanjut.</span>
                             </button>
 
-
-                            <form action="cetak-hasil.php" method="post">
-                                <p>Pilih Dokter Untuk Konsultasi</p>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>Open this select menu</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                        </div>
+                    </div>
+                    <div class="card info-card revenue-card">
+                        <div class="card-header" style="background-color: #4154f1">
+                            <h4 style="color: white;">Pilih Dokter Untuk Konsultasi</h4>
+                        </div>
+                        <div class="card-body"><br>
+                            <form action="" method="post">
+                                <select class="form-select" aria-label="Default select example" name="id_dokter">
+                                    <option selected>Daftar Dokter Spesialis Kandungan</option>
+                                    <?php
+                                        $queryDokter = "SELECT * FROM dokter";
+                                        $resultDokter = mysqli_query($conn, $queryDokter);
+                                        while($dataDokter = mysqli_fetch_assoc($resultDokter)){
+                                            echo "<option value='".$dataDokter['id_dokter']."'>".$dataDokter['nama_dokter']."</option>";
+                                        }
+                                    ?>
+                                </select><br>
+                                <input type="hidden" name="hasil" class="form-control" value="<?php echo $max_value?>">
+                                <input type="hidden" name="id_penyakit" class="form-control"
+                                    value="<?php echo $idKet?>">
+                                <button type="submit" name="simpan_diagnosa" class="btn btn-success"
+                                    style="width: 100%;">
+                                    <i class="bi bi-printer-fill"></i>&nbsp; Cetak Hasil Diagnosa
+                                </button>
                             </form>
 
-                            <button type="button" class="btn btn-success" style="width: 100%;">
-                                Cetak Hasil Diagnosa
-                            </button>
+                            <?php
+                                if(isset($_POST['simpan_diagnosa'])) {
+                                    $id_dokter = $_POST['id_dokter'];
+                                    $id_penyakit = $_POST['id_penyakit'];
+                                    $hasil_penyakit = $_POST['hasil'];
+                                    
+                                    $querySimpan = "INSERT INTO riwayat (tgl,id_pasien,id_dokter,id_penyakit,hasil) VALUES ('$tgl_sekarang', '$id_pasien', '$id_dokter', '$id_penyakit', '$hasil_penyakit')";
+                                    $resultSimpan = mysqli_query($conn, $querySimpan);
+                                    if($resultSimpan) {
+                                        echo "<script>alert('Data berhasil ditambahkan!'); window.location.href = 'hasil.php';</script>";
+                                    }else {
+                                        echo "<script>alert('Data gagal ditambahkan!'); window.location.href = 'diagnosa.php';</script>";
+                                    }
+                                }
+
+                            ?>
 
                         </div>
                     </div>
