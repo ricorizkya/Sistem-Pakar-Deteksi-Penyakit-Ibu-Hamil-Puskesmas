@@ -10,15 +10,9 @@ error_reporting(E_ALL);
         $is_login = $_SESSION['login'];
         $username = $_SESSION['username'];
     }else {
-        header('location: ../login.php');
+        header('location: login.php');
     }
-    
-    $queryID = "SELECT * FROM pasien WHERE username_pasien='$username'";
-    $resultID = mysqli_query($conn, $queryID);
-                                        $rowID = mysqli_fetch_assoc($resultID);
-                                        $id_pasien = $rowID['id_pasien'];
-                                
-                                        $tgl_sekarang = date('Y-m-d');
+
 ?>
 
 <!DOCTYPE html>
@@ -87,7 +81,7 @@ error_reporting(E_ALL);
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6><?php echo $username; ?></h6>
+                            <h7><?php echo $username; ?></h7>
                             <span>Administrator</span>
                         </li>
                         <li>
@@ -95,7 +89,7 @@ error_reporting(E_ALL);
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="profil.php">
+                            <a class="dropdown-item d-flex align-items-center" href="profil-pasien.php">
                                 <i class="bi bi-person"></i>
                                 <span>Profil Saya</span>
                             </a>
@@ -141,7 +135,7 @@ error_reporting(E_ALL);
             </li>
 
             <li class="nav-item">
-                <a class="nav-link " href="riwayat.php">
+                <a class="nav-link collapsed" href="riwayat.php">
                     <i class="bi bi-clock-history"></i>
                     <span>Riwayat</span>
                 </a>
@@ -157,7 +151,7 @@ error_reporting(E_ALL);
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="profil-puskesmas.php">
+                <a class="nav-link " href="profil-puskesmas.php">
                     <i class="bi bi-hospital-fill"></i>
                     <span>Profil Puskesmas</span>
                 </a>
@@ -170,89 +164,112 @@ error_reporting(E_ALL);
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Riwayat Diagnosa</h1>
+            <h1>Profil Puskesmas</h1>
             <nav style="--bs-breadcrumb-divider: '|';">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                    <li class="breadcrumb-item active">Riwayat Diagnosa</li>
+                    <li class="breadcrumb-item active">Profil Puskesmas</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
-            <div class="card">
-                <div class="card-header" style="background-color: #4154f1">
-                    <h3 style="color: white"><b>Daftar Riwayat Diagnosa</b></h3>
-                </div>
-                <div class="card-body">
+            <div class="row">
 
-                    <!-- Bordered Table -->
-                    <table class="table table-hover ">
-                        <thead>
-                            <tr>
-                                <th scope="col">
-                                    <center>No</center>
-                                </th>
-                                <th scope="col">
-                                    <center>Tanggal Diagnosa</center>
-                                </th>
-                                <th scope="col">
-                                    <center>Diagnosa Penyakit</center>
-                                </th>
-                                <th scope="col">
-                                    <center>Probabilitas Penyakit</center>
-                                </th>
-                                <th scope="col">
-                                    <center>Dokter Konsultasi</center>
-                                </th>
-                                <th scope="col">
-                                    <center>Aksi</center>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <?php
-                                    $result = mysqli_query($conn, "SELECT * FROM riwayat LEFT JOIN dokter ON riwayat.id_dokter = dokter.id_dokter LEFT JOIN penyakit ON riwayat.id_penyakit = penyakit.id_penyakit WHERE id_pasien='$id_pasien'");
-                                    if(mysqli_num_rows($result) > 0){
-                                        $counter = 1;
-                                        while ($row = mysqli_fetch_assoc($result)) {
-                                            $persentase = $row['hasil'] * 100;
-                                ?>
-                                <td>
-                                    <center><?= $counter++; ?></center>
-                                </td>
-                                <td>
-                                    <center><?= $row['tgl']; ?></center>
-                                </td>
-                                <td>
-                                    <center>[<?= $row['kode_penyakit']; ?>] - <?= $row['nama_penyakit'];?></center>
-                                </td>
-                                <td>
-                                    <center><?= $persentase; ?>%</center>
-                                </td>
-                                <td>
-                                    <center><?= $row['nama_dokter']; ?>
-                                </td>
-                                </center>
-                                <td>
-                                    <center><a href="detail-riwayat.php?tgl=<?= $row['tgl'];?>"
-                                            class="btn btn-success"><i class="bi bi-printer-fill"></i>&nbsp; Detail</a>
-                                    </center>
-                                </td>
-                                <?php }} ?>
-                            </tr>
-                        </tbody>
-                    </table>
+                <!-- Left side columns -->
+                <div class="col-lg-12">
+                    <div class="row">
 
+                        <div class="col">
+                            <div class="card info-card revenue-card">
 
-                </div>
+                                <div class="card-body">
+                                    <h5 class="card-title">
+                                        <center>
+                                            <img src="../assets/img/foto-puskesmas.jpeg" alt="" style="width: 75%;"><br>
+                                        </center><br>
+                                    </h5>
+
+                                    <div class="d-flex align-items-center">
+                                        <div class="ps-6">
+                                            <center>
+                                                <h4>Visi</h4>
+                                                <h7>KUDUS BANGKIT MENUJU KABUPATEN MODERN, RELIGUS, CERDAS DAN SEJAHTERA
+                                                </h7>
+                                            </center>
+                                            <br>
+                                            <center>
+                                                <h4>Misi</h4>
+                                            </center>
+                                            <ul style="list-style-type: circle; list-style-color: #4154f1;">
+                                                <li>
+                                                    <h7>MEWUJUDKAN MASYARAKAT KUDUSYANG BERKUALITAS, KREATIF, INOVATIF
+                                                        DENGAN
+                                                        MEMANFAATKAN TEKNOLOGI DAN MULTIMEDIA</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEWUJUDKAN PEMERINTAHAN YANG SEMAKIN HANDAL UNTUK MENINGKATKAN
+                                                        PELAYANAN
+                                                        PUBLIK</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEWUJUDKAN KEHIDUPAN YANG TOLERAN DAN KONDUSIF</h7>
+                                                </li>
+                                                <li>
+                                                    <h7>MEMPERKUAT EKONOMI KERAKYATAN YANG BERBASIS KEUNGGULAN LOKAL DAN
+                                                        MEMBANGUN IKLIM USAHA YANG BERDAYA SAING</h7>
+                                                </li>
+                                            </ul><br>
+                                            <center>
+                                                <h4>Lokasi</h4>
+                                            </center>
+                                            <iframe
+                                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.5052719456257!2d110.89742101487167!3d-6.82985596870731!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e70c57f021f72ad%3A0x3d0c94a7bd7c6c26!2sPuskesmas%20Mejobo!5e0!3m2!1sen!2sid!4v1680798342591!5m2!1sen!2sid"
+                                                width="100%" height="450" style="border:0;" allowfullscreen=""
+                                                loading="lazy"
+                                                referrerpolicy="no-referrer-when-downgrade"></iframe><br><br>
+                                            <center>
+                                                <h4>Kontak Person</h4>
+                                            </center>
+                                            <div class="row justify-content-center">
+                                                <div class="col" style=" width: 40px;">
+                                                    <b>
+                                                        <h7>Whatsapp</h7>
+                                                    </b><br>
+                                                    <img src="../assets/img/whatsapp.png" style="width: 30px;">&nbsp;
+                                                    0876-3632-63
+                                                </div>
+                                                <div class="col" style=" width: 40px; ">
+                                                    <b>
+                                                        <h7>Telepon</h7>
+                                                    </b><br>
+                                                    <img src="../assets/img/telephone.png" style="width: 30px;">&nbsp;
+                                                    0291-431051
+                                                </div>
+                                                <div class="col" style=" width: 40px; ">
+                                                    <b>
+                                                        <h7>Fax</h7>
+                                                    </b><br>
+                                                    <img src="../assets/img/fax-machine.png" style="width: 30px;">&nbsp;
+                                                    0291-4247447
+                                                </div>
+                                                <div class="col col-4">
+                                                    <b>
+                                                        <h7>E-Mail</h7>
+                                                    </b><br>
+                                                    <img src="../assets/img/gmail.png" style="width: 30px;">&nbsp;
+                                                    pusk.mejobo@kuduskab.go.id
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div><!-- End Left side columns -->
             </div>
-            <?php 
-        // } 
-        ?>
-            </div>
-
         </section>
 
     </main><!-- End #main -->
