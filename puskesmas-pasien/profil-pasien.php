@@ -324,10 +324,10 @@ error_reporting(E_ALL);
                                                                         </div>
                                                                     </div>
                                                                     <div class="col-md-6 mb-4">
+                                                                        <label class="form-label"
+                                                                            for="form3Example2"><b>Usia
+                                                                                Kehamilan</b></label>
                                                                         <div class="form-outline">
-                                                                            <label class="form-label"
-                                                                                for="form3Example2"><b>Usia
-                                                                                    Kehamilan</b></label>
                                                                             <select class="form-select"
                                                                                 aria-label="Default select example"
                                                                                 name="usia_hamil">
