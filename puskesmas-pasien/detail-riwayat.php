@@ -428,9 +428,9 @@ error_reporting(E_ALL);
 
                         </div>
                     </div>
-                    <button type="submit" name="simpan_diagnosa" class="btn btn-success" style="width: 100%;">
+                    <a href="cetak-hasil.php?tgl=<?= $tgl_sekarang; ?>" class="btn btn-success" style="width: 100%;">
                         <i class="bi bi-printer-fill"></i>&nbsp; Cetak Hasil Diagnosa
-                    </button>
+                    </a>
                 </div>
             </div>
         </section>

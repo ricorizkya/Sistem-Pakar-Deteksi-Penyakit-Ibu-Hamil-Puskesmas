@@ -19,6 +19,29 @@ error_reporting(E_ALL);
                                         $id_pasien = $rowID['id_pasien'];
                                 
                                         // $tgl_sekarang = $_GET['tgl'];
+
+    if(isset($_POST['edit_profil'])) {
+        $namaPasien = $_POST['nama_lengkap'];
+        $nikpasien = $_POST['nik'];
+        $tempatPasien = $_POST['tempat_lahir'];
+        $tanggalPasien = $_POST['tgl_lahir'];
+        $usiaPasien = $_POST['usia'];
+        $hamilPasien = $_POST['usia_hamil'];
+        $nomorPasien = $_POST['nomor_hp'];
+        $pendidikanPasien = $_POST['pendidikan'];
+        $pekerjaanPasien = $_POST['pekerjaan'];
+        $alamatPasien = $_POST['alamat'];
+        $usernamePasien = $_POST['username'];
+        $passwordPasien = $_POST['password'];
+
+        $queryEdit = "UPDATE pasien SET nama_pasien='$namaPasien', nik='$nikpasien', tempat_lahir='$tempatPasien', tgl_lahir='$tanggalPasien', pekerjaan='$pekerjaanPasien', pendidikan='$pendidikanPasien', umur=$usiaPasien, usia_kehamilan='$hamilPasien', nomor_hp='$nomorPasien', alamat_pasien='$alamatPasien', username_pasien='$usernamePasien', password_pasien='$passwordPasien' WHERE id_pasien=$id_pasien";
+        $resultEdit = mysqli_query($conn, $queryEdit);
+        if($resultEdit) {
+            echo "<script>alert('Data berhasil diubah!'); window.location.href = 'profil-pasien.php';</script>";
+        }else {
+            echo "<script>alert('Data gagal diubah!'); window.location.href = 'profil-pasien.php';</script>";
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -331,14 +354,24 @@ error_reporting(E_ALL);
                                                                             <select class="form-select"
                                                                                 aria-label="Default select example"
                                                                                 name="usia_hamil">
-                                                                                <option selected></option>
-                                                                                <option value="Trimester 1">Trimester 1
+                                                                                <option value=""
+                                                                                    <?php echo ($rowID['usia_kehamilan'] == "") ? "selected" : ""; ?>>
                                                                                 </option>
-                                                                                <option value="Trimester 2">Trimester 2
+                                                                                <option value="Trimester 1"
+                                                                                    <?php echo ($rowID['usia_kehamilan'] == "Trimester 1") ? "selected" : ""; ?>>
+                                                                                    Trimester 1
                                                                                 </option>
-                                                                                <option value="Trimester 3">Trimester 3
+                                                                                <option value="Trimester 2"
+                                                                                    <?php echo ($rowID['usia_kehamilan'] == "Trimester 2") ? "selected" : ""; ?>>
+                                                                                    Trimester 2
                                                                                 </option>
-                                                                                <option value="Trimester 4">Trimester 4
+                                                                                <option value="Trimester 3"
+                                                                                    <?php echo ($rowID['usia_kehamilan'] == "Trimester 3") ? "selected" : ""; ?>>
+                                                                                    Trimester 3
+                                                                                </option>
+                                                                                <option value="Trimester 4"
+                                                                                    <?php echo ($rowID['usia_kehamilan'] == "Trimester 4") ? "selected" : ""; ?>>
+                                                                                    Trimester 4
                                                                                 </option>
                                                                             </select>
                                                                         </div>
@@ -443,7 +476,8 @@ error_reporting(E_ALL);
                                                         <div class="modal-footer">
                                                             <button type="submit" class="btn btn-danger"
                                                                 data-bs-dismiss="modal">Batal</button>
-                                                            <button type="submit" class="btn btn-success">Simpan
+                                                            <button type="submit" name="edit_profil"
+                                                                class="btn btn-success">Simpan
                                                                 Perubahan</a>
                                                         </div>
                                                         </form>

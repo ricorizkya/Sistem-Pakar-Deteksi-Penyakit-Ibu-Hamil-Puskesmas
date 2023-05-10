@@ -211,14 +211,14 @@ error_reporting(E_ALL);
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <?php
+                            <?php
                                     $result = mysqli_query($conn, "SELECT * FROM riwayat LEFT JOIN dokter ON riwayat.id_dokter = dokter.id_dokter LEFT JOIN penyakit ON riwayat.id_penyakit = penyakit.id_penyakit WHERE id_pasien='$id_pasien'");
                                     if(mysqli_num_rows($result) > 0){
                                         $counter = 1;
                                         while ($row = mysqli_fetch_assoc($result)) {
                                             $persentase = $row['hasil'] * 100;
                                 ?>
+                            <tr>
                                 <td>
                                     <center><?= $counter++; ?></center>
                                 </td>
@@ -240,8 +240,8 @@ error_reporting(E_ALL);
                                             class="btn btn-success"><i class="bi bi-printer-fill"></i>&nbsp; Detail</a>
                                     </center>
                                 </td>
-                                <?php }} ?>
                             </tr>
+                            <?php }} ?>
                         </tbody>
                     </table>
 

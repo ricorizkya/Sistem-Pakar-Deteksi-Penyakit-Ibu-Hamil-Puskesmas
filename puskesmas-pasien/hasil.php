@@ -393,7 +393,7 @@ error_reporting(E_ALL);
                                     value="<?php echo $idKet?>">
                                 <button type="submit" name="simpan_diagnosa" class="btn btn-success"
                                     style="width: 100%;">
-                                    <i class="bi bi-printer-fill"></i>&nbsp; Cetak Hasil Diagnosa
+                                    <i class="bi bi-printer-fill"></i>&nbsp; Simpan Hasil Diagnosa
                                 </button>
                             </form>
 
@@ -406,9 +406,9 @@ error_reporting(E_ALL);
                                     $querySimpan = "INSERT INTO riwayat (tgl,id_pasien,id_dokter,id_penyakit,hasil) VALUES ('$tgl_sekarang', '$id_pasien', '$id_dokter', '$id_penyakit', '$hasil_penyakit')";
                                     $resultSimpan = mysqli_query($conn, $querySimpan);
                                     if($resultSimpan) {
-                                        echo "<script>alert('Data berhasil ditambahkan!'); window.location.href = 'hasil.php';</script>";
+                                        echo "<script>alert('Data berhasil disimpan!'); window.location.href = 'riwayat.php';</script>";
                                     }else {
-                                        echo "<script>alert('Data gagal ditambahkan!'); window.location.href = 'diagnosa.php';</script>";
+                                        echo "<script>alert('Data gagal disimpan!'); window.location.href = 'hasil.php';</script>";
                                     }
                                 }
 

@@ -181,12 +181,12 @@ error_reporting(E_ALL);
 
         <section class="section dashboard">
             <?php
-                $queryCekDiagnosa = "SELECT * FROM gejala_user WHERE id_user='$id_pasien' AND tgl='$tgl_sekarang'";
-                $resultCekDiagnosa = mysqli_query($conn, $queryCekDiagnosa);
+                // $queryCekDiagnosa = "SELECT * FROM gejala_user WHERE id_user='$id_pasien' AND tgl='$tgl_sekarang'";
+                // $resultCekDiagnosa = mysqli_query($conn, $queryCekDiagnosa);
 
-                if(mysqli_num_rows($resultCekDiagnosa) > 0) {
+                // if(mysqli_num_rows($resultCekDiagnosa) > 0) {
             ?>
-            <div class="card">
+            <!-- <div class="card">
                 <div class="card-body">
                     <center>
                         <svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" fill="orange"
@@ -198,9 +198,9 @@ error_reporting(E_ALL);
                             diagnosa anda hari ini.</h3>
                     </center>
                 </div>
-            </div>
+            </div> -->
             <?php
-                }else {
+                // }else {
             ?>
             <div class="card">
                 <div class="card-header">
@@ -401,7 +401,9 @@ error_reporting(E_ALL);
                     </div>
                 </div>
             </div>
-            <?php } ?>
+            <?php 
+        // } 
+        ?>
             </div>
 
         </section>
