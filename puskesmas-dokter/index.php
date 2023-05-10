@@ -86,20 +86,12 @@
 
     $queryPasien = "SELECT COUNT(*) AS total FROM pasien";
     $resultPasien = mysqli_query($conn, $queryPasien);
-    $total_pasien = 0;
 
     // Memeriksa apakah query berhasil dijalankan
     if($resultPasien) {
         // Mengambil data total dari hasil query
         $rowPasien = mysqli_fetch_assoc($resultPasien);
-        
-        if($total_Pasien === 0 || $total_Pasien === NULL) {
-            $total_Pasien = 0;
-        }else {
-            $total_Pasien = $rowPasien['total'];
-        }
-        // Menampilkan total data
-        // echo "Total data dalam tabel: " . $total_data;
+        $total_Pasien = $rowPasien['total'];
     } else {
         // Jika query gagal dijalankan, tampilkan pesan error
         echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
@@ -343,27 +335,6 @@
                                 </div>
                             </div>
                         </div><!-- End Customers Card -->
-
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Admin</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-bounding-box"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Admin; ?></h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
 
                         <!-- Revenue Card -->
                         <div class="col-xxl-4 col-md-6">
