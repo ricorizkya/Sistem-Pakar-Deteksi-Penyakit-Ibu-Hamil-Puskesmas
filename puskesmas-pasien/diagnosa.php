@@ -88,14 +88,14 @@ error_reporting(E_ALL);
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6><?php echo $username; ?></h6>
-                            <span>Administrator</span>
+                            <span>Pasien</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="profil.php">
+                            <a class="dropdown-item d-flex align-items-center" href="profil-pasien.php">
                                 <i class="bi bi-person"></i>
                                 <span>Profil Saya</span>
                             </a>
@@ -320,7 +320,6 @@ error_reporting(E_ALL);
                                             <option value='0.6'>Kemungkinan Besar</option>
                                             <option value='0.4'>Mungkin</option>
                                             <option value='0.2'>Hampir Mungkin</option>
-                                            <option value='0.0'>Tidak</option>
                                         </select>
                                         <button type="submit" name="simpan-gejala" class="btn btn-primary"
                                             style="width: 100%;">Simpan</button>
@@ -382,8 +381,6 @@ error_reporting(E_ALL);
                                                         $kondisi_user = "Mungkin";
                                                     }elseif($row_gejala['kondisi'] == 0.2) {
                                                         $kondisi_user = "Hampir Mungkin";
-                                                    }elseif($row_gejala['kondisi'] == 0.0) {
-                                                        $kondisi_user = "Tidak";
                                                     }
                                                 ?>
                                                 <td><?= $kondisi_user; ?></td>

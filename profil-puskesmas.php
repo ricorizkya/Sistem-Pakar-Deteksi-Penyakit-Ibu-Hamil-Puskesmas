@@ -77,7 +77,7 @@
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h7><?php echo $username; ?></h7>
+                            <h6><?php echo $username; ?></h6>
                             <span>Administrator</span>
                         </li>
                         <li>

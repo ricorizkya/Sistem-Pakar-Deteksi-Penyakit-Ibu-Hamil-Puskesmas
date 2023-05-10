@@ -115,14 +115,14 @@ error_reporting(E_ALL);
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
                             <h6><?php echo $username; ?></h6>
-                            <span>Administrator</span>
+                            <span>Pasien</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="profil.php">
+                            <a class="dropdown-item d-flex align-items-center" href="profil-pasien.php">
                                 <i class="bi bi-person"></i>
                                 <span>Profil Saya</span>
                             </a>

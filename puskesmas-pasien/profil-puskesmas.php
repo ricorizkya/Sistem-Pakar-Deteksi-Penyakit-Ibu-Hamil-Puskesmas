@@ -81,8 +81,8 @@ error_reporting(E_ALL);
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h7><?php echo $username; ?></h7>
-                            <span>Administrator</span>
+                            <h6><?php echo $username; ?></h6>
+                            <span>Pasien</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
