@@ -160,22 +160,6 @@
                 </a>
             </li>
 
-            <li class="nav-heading">Data Pengguna</li>
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="../data-admin.php">
-                    <i class="bi bi-person-bounding-box"></i>
-                    <span>Data Admin</span>
-                </a>
-            </li>
-
-            <li class="nav-item">
-                <a class="nav-link " href="data-dokter.php">
-                    <i class="bi bi-person-vcard-fill"></i>
-                    <span>Data Dokter</span>
-                </a>
-            </li>
-
             <li class="nav-item">
                 <a class="nav-link collapsed" href="../data-pasien.php">
                     <i class="bi bi-people-fill"></i>
