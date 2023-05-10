@@ -140,7 +140,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../penegtahuan/data-pengetahuan.php">
+                <a class="nav-link collapsed" href="../pengetahuan/data-pengetahuan.php">
                     <i class="bi bi-database-fill-gear"></i>
                     <span>Data Pengetahuan</span>
                 </a>
