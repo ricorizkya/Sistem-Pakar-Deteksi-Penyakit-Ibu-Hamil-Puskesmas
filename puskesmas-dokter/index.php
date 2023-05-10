@@ -229,14 +229,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/dokter/data-dokter.php">
+                <a class="nav-link collapsed" href="dokter/data-dokter.php">
                     <i class="bi bi-person-vcard-fill"></i>
                     <span>Data Dokter</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/pasien/data-pasien.php">
+                <a class="nav-link collapsed" href="pasien/data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -245,14 +245,14 @@
             <li class="nav-heading">Data Penyakit</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/penyakit/data-penyakit.php">
+                <a class="nav-link collapsed" href="penyakit/data-penyakit.php">
                     <i class="bi bi-bug-fill"></i>
                     <span>Data Penyakit</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="/gejala/data-gejala.php">
+                <a class="nav-link collapsed" href="gejala/data-gejala.php">
                     <i class="bi bi-heart-pulse-fill"></i>
                     <span>Data Gejala</span>
                 </a>

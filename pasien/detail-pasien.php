@@ -96,7 +96,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="logout.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -235,7 +235,7 @@
                     </div>
                     <div class="row">
                         <div class="col-2"><b>Nomor HP</b></div>
-                        <div class="col-3"><?= $rowPasien['no_hp']; ?></div>
+                        <div class="col-3"><?= $rowPasien['nomor_hp']; ?></div>
                     </div>
                     <div class="row">
                         <div class="col-2"><b>Alamat Lengkap</b></div>
@@ -254,7 +254,7 @@
                 </div>
                 <div class="card-body">
                     <?php
-                        $result = mysqli_query($conn, "SELECT * FROM pasien");
+                        $result = mysqli_query($conn, "SELECT * FROM riwayat LEFT JOIN penyakit ON riwayat.id_penyakit=penyakit.id_penyakit LEFT JOIN dokter ON riwayat.id_dokter=dokter.id_dokter WHERE id_pasien=$id_pasien");
                         if(mysqli_num_rows($result) > 0){
                             $counter = 1;
                     ?>
@@ -264,9 +264,8 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Tanggal</th>
-                                <th scope="col">Gejala</th>
-                                <th scope="col">Kondisi</th>
-                                <th scope="col">Hasil Diagnosa</th>
+                                <th scope="col">Diagnosa</th>
+                                <th scope="col">Probabilitas</th>
                                 <th scope="col">Dokter</th>
                                 <th scope="col">Aksi</th>
                             </tr>
@@ -274,14 +273,14 @@
                         <tbody>
                             <?php
                                 while($row = mysqli_fetch_assoc($result)){
+                                    $probabilitas = $row['hasil']*100;
                             ?>
                             <tr>
                                 <th scope="row"><?php echo $counter; ?></th>
-                                <td><?php echo $row['nik']; ?></td>
-                                <td><?php echo $row['nama_pasien']; ?></td>
-                                <td><?php echo $row['tgl_lahir']; ?></td>
-                                <td><?php echo $row['pendidikan']; ?></td>
-                                <td><?php echo $row['pekerjaan']; ?></td>
+                                <td><?php echo $row['tgl']; ?></td>
+                                <td><?php echo $row['nama_penyakit']; ?></td>
+                                <td><?php echo $probabilitas; ?>%</td>
+                                <td><?php echo $row['nama_dokter']; ?></td>
                                 <td>
                                     <a href="cetak-data.php?nomor=<?php echo $row['id_riwayat']; ?>"
                                         class="btn btn-success">Cetak Data</a>

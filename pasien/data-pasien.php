@@ -95,7 +95,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="logout.php">
+                            <a class="dropdown-item d-flex align-items-center" href="../logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -208,8 +208,6 @@
                                 <th scope="col">NIK</th>
                                 <th scope="col">Nama Pasien</th>
                                 <th scope="col">Tanggal Lahir</th>
-                                <th scope="col">Pendidikan Terakhir</th>
-                                <th scope="col">Pekerjaan</th>
                                 <th scope="col">Umur</th>
                                 <th scope="col">Usia Kehamilan</th>
                                 <th scope="col">No HP</th>
@@ -227,11 +225,9 @@
                                 <td><?php echo $row['nik']; ?></td>
                                 <td><?php echo $row['nama_pasien']; ?></td>
                                 <td><?php echo $row['tgl_lahir']; ?></td>
-                                <td><?php echo $row['pendidikan']; ?></td>
-                                <td><?php echo $row['pekerjaan']; ?></td>
                                 <td><?php echo $row['umur']; ?></td>
                                 <td><?php echo $row['usia_kehamilan']; ?></td>
-                                <td><?php echo $row['no_hp']; ?></td>
+                                <td><?php echo $row['nomor_hp']; ?></td>
                                 <td><?php echo $row['alamat_pasien']; ?></td>
                                 <td><?php echo $row['username_pasien']; ?></td>
                                 <td>

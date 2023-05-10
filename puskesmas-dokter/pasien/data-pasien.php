@@ -9,29 +9,6 @@
         header('location: ../login.php');
     }
 
-    $id_penyakit = $_GET['nomor'];
-
-    $querySelect = "SELECT * FROM penyakit WHERE id_penyakit=$id_penyakit";
-
-    $result = mysqli_query($conn, $querySelect);
-    $rowPenyakit = mysqli_fetch_assoc($result);
-
-    if(isset($_POST['edit-pengetahuan'])) {
-        $idPengetahuan = $_POST['id_pengetahuan'];
-        $idGejala = $_POST['id_gejala'];
-        $nilaiMB = $_POST['mb'];
-        $nilaiMD = $_POST['md'];
-        $nilaiCF = $nilaiMB-$nilaiMD;
-
-        $queryEdit = "UPDATE basis_pengetahuan SET id_gejala='$idGejala',mb='$nilaiMB',md='$nilaiMD',cf='$nilaiCF' WHERE id_pengetahuan='$idPengetahuan'";
-        if(mysqli_query($conn, $queryEdit)) {
-            echo "<script>alert('Data berhasil diubah!'); window.location.href = 'detail-pengetahuan.php?nomor=".$id_penyakit."';</script>";
-        }else {
-            echo "<script>alert('Data gagal diubah!'); window.location.href = 'detail-pengetahuan.php?nomor=".$id_penyakit."';</script>";
-        } 
-    }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +58,7 @@
     <header id="header" class="header fixed-top d-flex align-items-center">
 
         <div class="d-flex align-items-center justify-content-between">
-            <a href="index.html" class="logo d-flex align-items-center">
+            <a href="index.php" class="logo d-flex align-items-center">
                 <img src="../assets/img/logo.png" alt="">
                 <span class="d-none d-lg-block">Puskesmas Mejobo</span>
             </a>
@@ -118,7 +95,7 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="../logout.php">
+                            <a class="dropdown-item d-flex align-items-center" href="logout.php">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <span>Sign Out</span>
                             </a>
@@ -161,7 +138,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="../pasien/data-pasien.php">
+                <a class="nav-link " href="data-pasien.php">
                     <i class="bi bi-people-fill"></i>
                     <span>Data Pasien</span>
                 </a>
@@ -170,7 +147,7 @@
             <li class="nav-heading">Data Penyakit</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="data-penyakit.php">
+                <a class="nav-link collapsed" href="../penyakit/data-penyakit.php">
                     <i class="bi bi-bug-fill"></i>
                     <span>Data Penyakit</span>
                 </a>
@@ -184,7 +161,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link " href="data-pengetahuan.php">
+                <a class="nav-link collapsed" href="../pengetahuan/data-pengetahuan.php">
                     <i class="bi bi-database-fill-gear"></i>
                     <span>Data Pengetahuan</span>
                 </a>
@@ -206,26 +183,20 @@
     <main id="main" class="main">
 
         <div class="pagetitle">
-            <h1>Detail Basis Pengetahuan Penyakit <?= $rowPenyakit['nama_penyakit']; ?></h1>
+            <h1>Data Pasien</h1>
             <nav style="--bs-breadcrumb-divider: '|';">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="../index.php">Home</a></li>
-                    <li class="breadcrumb-item"><a href="data-pengetahuan.php">Data Basis Pengetahuan</a></li>
-                    <li class="breadcrumb-item active">Detail Basis Pengetahuan Penyakit
-                        <?= $rowPenyakit['nama_penyakit']; ?></li>
+                    <li class="breadcrumb-item active">Data Pasien</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->
 
         <section class="section dashboard">
             <div class="card">
-                <div class="card-header"><a href="tambah-pengetahuan.php?nomor=<?= $rowPenyakit['id_penyakit']; ?>"
-                        class="btn btn-primary" style="width: 100%;">Tambah
-                        Basis Pengetahuan</a></div>
                 <div class="card-body">
                     <?php
-                        $query = "SELECT * FROM basis_pengetahuan LEFT JOIN penyakit ON basis_pengetahuan.id_penyakit = penyakit.id_penyakit LEFT JOIN gejala ON basis_pengetahuan.id_gejala = gejala.id_gejala WHERE penyakit.id_penyakit = $id_penyakit";
-                        $result = mysqli_query($conn, $query);
+                        $result = mysqli_query($conn, "SELECT * FROM pasien");
                         if(mysqli_num_rows($result) > 0){
                             $counter = 1;
                     ?>
@@ -234,13 +205,15 @@
                         <thead>
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col" hidden>ID Pengetahuan</th>
-                                <th scope="col" hidden>ID Gejala</th>
-                                <th scope="col">Kode Gejala</th>
-                                <th scope="col">Nama Gejala</th>
-                                <th scope="col">Nilai MB</th>
-                                <th scope="col">Nilai MD</th>
-                                <th scope="col">Detail</th>
+                                <th scope="col">NIK</th>
+                                <th scope="col">Nama Pasien</th>
+                                <th scope="col">Tanggal Lahir</th>
+                                <th scope="col">Umur</th>
+                                <th scope="col">Usia Kehamilan</th>
+                                <th scope="col">No HP</th>
+                                <th scope="col">Alamat Pasien</th>
+                                <th scope="col">Username</th>
+                                <th scope="col">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -248,20 +221,18 @@
                                 while($row = mysqli_fetch_assoc($result)){
                             ?>
                             <tr>
-                                <td><?php echo $counter++; ?></td>
-                                <td hidden><?php echo $row['id_pengetahuan']; ?></td>
-                                <td hidden><?php echo $row['id_gejala']; ?></td>
-                                <td><?php echo $row['kode_gejala']; ?></td>
-                                <td><?php echo $row['nama_gejala']; ?></td>
-                                <td><?php echo $row['mb']; ?></td>
-                                <td><?php echo $row['md']; ?></td>
+                                <th scope="row"><?php echo $counter; ?></th>
+                                <td><?php echo $row['nik']; ?></td>
+                                <td><?php echo $row['nama_pasien']; ?></td>
+                                <td><?php echo $row['tgl_lahir']; ?></td>
+                                <td><?php echo $row['umur']; ?></td>
+                                <td><?php echo $row['usia_kehamilan']; ?></td>
+                                <td><?php echo $row['nomor_hp']; ?></td>
+                                <td><?php echo $row['alamat_pasien']; ?></td>
+                                <td><?php echo $row['username_pasien']; ?></td>
                                 <td>
-                                    <button type="button" class="btn btn-primary btn-launch-modal"
-                                        data-bs-toggle="modal" data-bs-target="#disablebackdrop">
-                                        Edit
-                                    </button>
-                                    <a href="hapus-pengetahuan.php?nomor=<?php echo $row['id_pengetahuan']; ?>"
-                                        class="btn btn-danger">Hapus</a>
+                                    <a href="detail-pasien.php?nomor=<?php echo $row['id_pasien']; ?>"
+                                        class="btn btn-success">DETAIL</a>
                                 </td>
                             </tr>
                             <?php 
@@ -273,76 +244,6 @@
                         </tbody>
                     </table>
                     <!-- End Bordered Table -->
-                    <div class="modal fade" id="disablebackdrop" tabindex="-1" data-bs-backdrop="false">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title"><span id="kode_gejala"></span> - <span
-                                            id="nama_gejala"></span></h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <b>Ubah Nilai MB & MD</b><br><br>
-                                    <form class="row g-3" action="" method="post">
-                                        <div class="col-md-6">
-                                            <label for="inputEmail5" class="form-label">Masukkan Nilai MB</label>
-                                            <input type="number" step="any" class="form-control" id="nilai_mb" name="mb"
-                                                required>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <label for="inputPassword5" class="form-label">Masukkan Nilai MD</label>
-                                            <input ype="number" step="any" class="form-control" id="nilai_md" name="md"
-                                                required>
-                                        </div>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary"
-                                        data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary"
-                                        name="edit-pengetahuan">Simpan</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                    <script>
-                    $(document).ready(function() {
-                        $('.btn-launch-modal').click(function() {
-                            var id_pengetahuan = $(this).closest('tr').find('td:eq(1)').text().trim();
-                            var id_gejala = $(this).closest('tr').find('td:eq(2)').text().trim();
-                            var kode_gejala = $(this).closest('tr').find('td:eq(3)').text().trim();
-                            var nama_gejala = $(this).closest('tr').find('td:eq(4)').text().trim();
-                            var mb = $(this).closest('tr').find('td:eq(5)').text().trim();
-                            var md = $(this).closest('tr').find('td:eq(6)').text().trim();
-
-                            $('#id_gejala').val(id_gejala);
-                            $('#id_pengetahuan').val(id_pengetahuan);
-                            $('#kode_gejala').text(kode_gejala);
-                            $('#nama_gejala').text(nama_gejala);
-                            $('#nilai_mb').val(mb);
-                            $('#nilai_md').val(md);
-                        });
-                    });
-
-                    // $('form').submit(function(event) {
-                    //     event.preventDefault();
-                    //     $.ajax({
-                    //         type: "POST",
-                    //         url: "proses-edit-pengetahuan.php",
-                    //         data: $(this).serialize(),
-                    //         success: function() {
-                    //             alert('Data berhasil disimpan');
-                    //             $('#disablebackdrop').modal('hide');
-                    //             location.reload();
-                    //         },
-                    //         error: function() {
-                    //             alert('Terjadi kesalahan');
-                    //         }
-                    //     });
-                    // });
-                    </script>
                 </div>
             </div>
         </section>
