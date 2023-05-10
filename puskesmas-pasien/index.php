@@ -14,7 +14,7 @@ error_reporting(E_ALL);
         header('location: ../login.php');
     }
 
-    $queryPenyakit = "SELECT COUNT(*) AS total FROM penyakit";
+    $queryPenyakit = "SELECT COUNT(*) AS total FROM gejala_user";
     $resultPenyakit = mysqli_query($conn, $queryPenyakit);
 
     // Memeriksa apakah query berhasil dijalankan
@@ -30,7 +30,7 @@ error_reporting(E_ALL);
         echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
     }
 
-    $queryGejala = "SELECT COUNT(*) AS total FROM gejala";
+    $queryGejala = "SELECT COUNT(*) AS total FROM riwayat";
     $resultGejala = mysqli_query($conn, $queryGejala);
 
     // Memeriksa apakah query berhasil dijalankan
@@ -45,77 +45,6 @@ error_reporting(E_ALL);
         // Jika query gagal dijalankan, tampilkan pesan error
         echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
     }
-
-    $queryPengetahuan = "SELECT COUNT(*) AS total FROM basis_pengetahuan";
-    $resultPengetahuan = mysqli_query($conn, $queryPengetahuan);
-
-    // Memeriksa apakah query berhasil dijalankan
-    if($resultPengetahuan) {
-        // Mengambil data total dari hasil query
-        $rowPengetahuan = mysqli_fetch_assoc($resultPengetahuan);
-        $total_Pengetahuan = $rowPengetahuan['total'];
-
-        // Menampilkan total data
-        // echo "Total data dalam tabel: " . $total_data;
-    } else {
-        // Jika query gagal dijalankan, tampilkan pesan error
-        echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
-    }
-
-    $queryAdmin = "SELECT COUNT(*) AS total FROM admin";
-    $resultAdmin = mysqli_query($conn, $queryAdmin);
-
-    // Memeriksa apakah query berhasil dijalankan
-    if($resultAdmin) {
-        // Mengambil data total dari hasil query
-        $rowAdmin = mysqli_fetch_assoc($resultAdmin);
-        $total_Admin = $rowAdmin['total'];
-
-        // Menampilkan total data
-        // echo "Total data dalam tabel: " . $total_data;
-    } else {
-        // Jika query gagal dijalankan, tampilkan pesan error
-        echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
-    }
-
-    $queryDokter = "SELECT COUNT(*) AS total FROM dokter";
-    $resultDokter = mysqli_query($conn, $queryDokter);
-
-    // Memeriksa apakah query berhasil dijalankan
-    if($resultDokter) {
-        // Mengambil data total dari hasil query
-        $rowDokter = mysqli_fetch_assoc($resultDokter);
-        $total_Dokter = $rowDokter['total'];
-
-        // Menampilkan total data
-        // echo "Total data dalam tabel: " . $total_data;
-    } else {
-        // Jika query gagal dijalankan, tampilkan pesan error
-        echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
-    }
-
-    $queryPasien = "SELECT COUNT(*) AS total FROM pasien";
-    $resultPasien = mysqli_query($conn, $queryPasien);
-
-    // Memeriksa apakah query berhasil dijalankan
-    if($resultPasien) {
-        // Mengambil data total dari hasil query
-        $rowPasien = mysqli_fetch_assoc($resultPasien);
-        
-        $total_Pasien = 0;
-        if($total_Pasien === 0 || $total_Pasien === NULL) {
-            $total_Pasien = 0;
-        }else {
-            $total_Pasien = $rowPasien['total'];
-        }
-        // Menampilkan total data
-        // echo "Total data dalam tabel: " . $total_data;
-    } else {
-        // Jika query gagal dijalankan, tampilkan pesan error
-        echo "Terjadi kesalahan dalam menghitung total data: " . mysqli_error($conn);
-    }
-
-
 
 ?>
 
@@ -281,136 +210,50 @@ error_reporting(E_ALL);
             <div class="row">
 
                 <!-- Left side columns -->
-                <div class="col-lg-12">
-                    <div class="row">
+                <div class="col-lg-6">
+                    <!-- Sales Card -->
+                    <div class="col">
+                        <div class="card info-card sales-card">
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+                            <div class="card-body">
+                                <h5 class="card-title">Total Gejala</h5>
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Penyakit</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-bug-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_penyakit; ?></h6>
-                                        </div>
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-bug-fill"></i>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Gejala</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-heart-pulse-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Gejala; ?></h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Pengetahuan</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-database-fill-gear"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Pengetahuan; ?></h6>
-                                        </div>
+                                    <div class="ps-3">
+                                        <h6><?php echo $total_penyakit; ?> Gejala</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Customers Card -->
 
-                        <!-- Sales Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
+                        </div>
+                    </div><!-- End Sales Card -->
+                </div><!-- End Left side columns -->
 
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Admin</h5>
+                <div class="col-lg-6">
+                    <!-- Sales Card -->
+                    <div class="col">
+                        <div class="card info-card sales-card">
 
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-bounding-box"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Admin; ?></h6>
-                                        </div>
+                            <div class="card-body">
+                                <h5 class="card-title">Total Diagnosis</h5>
+
+                                <div class="d-flex align-items-center">
+                                    <div
+                                        class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                        <i class="bi bi-clipboard-pulse"></i>
                                     </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Sales Card -->
-
-                        <!-- Revenue Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Dokter</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-person-vcard-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Dokter; ?></h6>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div><!-- End Revenue Card -->
-
-                        <!-- Customers Card -->
-                        <div class="col-xxl-4 col-xl-12">
-
-                            <div class="card info-card customers-card">
-
-                                <div class="card-body">
-                                    <h5 class="card-title">Total Pasien</h5>
-
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people-fill"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6><?php echo $total_Pasien; ?></h6>
-                                        </div>
+                                    <div class="ps-3">
+                                        <h6><?php echo $total_Gejala; ?> Penyakit</h6>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Customers Card -->
 
-                    </div>
+                        </div>
+                    </div><!-- End Sales Card -->
                 </div><!-- End Left side columns -->
             </div>
         </section>
