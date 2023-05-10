@@ -240,7 +240,6 @@
                                 style="width: 100%;">Submit</button>
                         </div>
                     </form><!-- End Multi Columns Form -->
-                    <?php var_dump($data); ?>
                     <!-- End Bordered Table -->
                 </div>
             </div>
